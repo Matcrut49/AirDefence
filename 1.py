@@ -1,4 +1,5 @@
-import time
-a = (time.time())
-time.sleep(1)
-print(time.time() - a)
+from itertools import product
+a = [1, 3]
+c = [2, 4]
+for i, b in product(a, c):
+    print(i, b)

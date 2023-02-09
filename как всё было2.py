@@ -8,7 +8,7 @@ def rotate(surface, angle, pivot, offset):
     rotated_offset = offset.rotate(angle) 
     rect = rotated_image.get_rect(center=pivot+rotated_offset)
     return rotated_image, rect 
-a = 120
+a = 0
 speed = -500
 class BULLET():
     def __init__(self, x, y, speed) -> None:
@@ -47,7 +47,6 @@ BG_COLOR = (250, 100, 50)
 PADDLE_COLOR = (20, 20, 20)
 STAND_COLOR = (46, 102, 159)
 HOME_COLOR = (30, 250, 17)
-HOME_COLOR1 = (255, 0 , 0)
 
 field = pygame.Rect(0, SCREEN_HEIGHT - 100,  SCREEN_WIDTH, 100)
 stand = pygame.Rect((SCREEN_WIDTH / 2 - 100),SCREEN_HEIGHT - 140 , 200, 40)
@@ -78,12 +77,10 @@ while run:
             angle -= 1
     if keys [pygame.K_SPACE]:    
         for i in range(3):
-            if massive2[i] == None and a >= 120:
-                a = 0
+            if massive2[i] == None:
                 massive2[i] = PVOBULLET((SCREEN_WIDTH / 2 + (sin(radians(angle)) * 120)), (SCREEN_HEIGHT - (120 + cos(radians(angle)) * 120)),speed, speed, angle + 90)
                 print(massive2)
                 break
-    a += 1
     rotated_image, rect = rotate(player_img, angle, pivot, offset)
     screen.fill(BG_COLOR)
     screen.blit(rotated_image, rect)
@@ -111,9 +108,6 @@ while run:
             if massive1[bulet1] != None:
                 massive1[bulet1].spawn()
                 massive1[bulet1].move()
-            if massive1[bulet1] != None and(massive1[bulet1].x >= ((SCREEN_WIDTH / 2 + 400) and massive1[bulet1].x <= (SCREEN_WIDTH / 2 + 330)) and (massive1[bulet1].y >= (SCREEN_HEIGHT - 170) and massive1[bulet1].y <= (SCREEN_HEIGHT - 100))):
-                massive1[bulet1] = None
-                pygame.draw.rect(screen, HOME_COLOR1, home)
     for bulllet2 in range(len(massive2)):
         
             if massive2[bulllet2] != None:
