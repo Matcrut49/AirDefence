@@ -10,6 +10,7 @@ def rotate(surface, angle, pivot, offset):
     return rotated_image, rect 
 a = 120
 speed = -500
+score = 0
 class BULLET():
     def __init__(self, x, y, speed) -> None:
          self.x = x
@@ -58,7 +59,7 @@ pivot = [(SCREEN_WIDTH / 2), SCREEN_HEIGHT - 120]
 angle = 0
 
 massive1 = [BULLET(random.randint(200 , 1400), -100, random.randint(1, 3)) for i in range(2)]
-massive2 = [None, None, None]
+massive2 = [None for i in range(3)]
 player_img = pygame.image.load("gun3.png")
 pygame.init()
 clock = pygame.time.Clock()
@@ -77,7 +78,7 @@ while run:
     elif keys[pygame.K_a] and angle >= -75:
             angle -= 1
     if keys [pygame.K_SPACE]:    
-        for i in range(3):
+        for i in range(len(massive2)):
             if massive2[i] == None and a >= 120:
                 a = 0
                 massive2[i] = PVOBULLET((SCREEN_WIDTH / 2 + (sin(radians(angle)) * 120)), (SCREEN_HEIGHT - (120 + cos(radians(angle)) * 120)),speed, speed, angle + 90)
@@ -99,7 +100,7 @@ while run:
                 bulllet2 = None
                 bulet1.despawn()
                 bulet1 = None
-                
+                score += 1
         
 
     for bulet1 in range(len(massive1)):
@@ -114,6 +115,7 @@ while run:
             if massive1[bulet1] != None and(massive1[bulet1].x >= ((SCREEN_WIDTH / 2 + 400) and massive1[bulet1].x <= (SCREEN_WIDTH / 2 + 330)) and (massive1[bulet1].y >= (SCREEN_HEIGHT - 170) and massive1[bulet1].y <= (SCREEN_HEIGHT - 100))):
                 massive1[bulet1] = None
                 pygame.draw.rect(screen, HOME_COLOR1, home)
+                score -= 1
     for bulllet2 in range(len(massive2)):
         
             if massive2[bulllet2] != None:
@@ -121,6 +123,11 @@ while run:
                 massive2[bulllet2].update()  
             if massive2[bulllet2] != None and (massive2[bulllet2].y >= 800 or massive2[bulllet2].x <= 0 or massive2[bulllet2].x >= 1600):
                 massive2[bulllet2] = None
+    font1 = pygame.font.SysFont('arialmt.ttf', 50)
+    text1 = font1.render(str(score), True, (0, 255, 0))
+    textRect1 = text1.get_rect()
+    textRect1.center = (50, 50)
+    screen.blit(text1, textRect1)
     clock.tick(60)
     #print(cos(radians(angle)))
     pygame.display.flip()
