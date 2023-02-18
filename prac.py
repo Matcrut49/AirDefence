@@ -61,7 +61,7 @@ offset = pygame.math.Vector2(0, -25)
 pivot = [(Shirina / 2), Height - 120]
 angle = 0
 
-massive1 = [BULLET(random.randint(200 , 1400), -100, random.randint(1, 3)) for i in range(2)]
+massive1 = [BULLET(random.randint(200 , 1400), -100, random.randint(1, 2)) for i in range(2)]
 massive2 = [None for i in range(10)]
 player_img = pygame.image.load("gun3.png")
 pygame.init()
